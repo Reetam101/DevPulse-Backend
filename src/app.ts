@@ -58,7 +58,7 @@ class App {
         }));
 
         // Logger middleware (add your own)
-        this.app.use((req: Request, res: Response, next: NextFunction) => {
+        this.app.use((req: Request, _res: Response, next: NextFunction) => {
             console.log(`${req.method} ${req.path}`);
             next();
         });
@@ -66,7 +66,7 @@ class App {
 
     private initializeRoutes(): void {
         // Health check
-        this.app.get('/health', (req: Request, res: Response) => {
+        this.app.get('/health', (_req: Request, res: Response) => {
             res.status(200).json({
                 status: 'success',
                 message: 'Server is running',
@@ -78,7 +78,7 @@ class App {
         this.app.use('/api/v1/auth', authRoutes);
 
         // 404 handler
-        this.app.use((req: Request, res: Response) => {
+        this.app.use((_req: Request, res: Response) => {
             res.status(404).json({
                 status: 'error',
                 message: 'Route not found',
